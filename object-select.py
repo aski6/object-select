@@ -17,11 +17,11 @@ def parse_args(): #Parse the command arguments, returning them to be used by the
 def check_file_structure(structure_path, overall_root): #Checks that the file stucture of the specified path matches that of the corresponding part of the detectnet dataset format. overall_root defines if the supplied path is the overall root of the filestructure (True), or if it is one of the subdirectories (False).
     subdirectories = [f for f in listdir(structure_path) if isdir(join(structure_path, f))]
     if(overall_root):
-        if (subdirectories.__contains__("train") and subdirectories.__contains__("val")):
+        if ("train" in subdirectories and "val" in subdirectories):
             #return an evaluated boolean (AND) from the results of checking both subdirectories.
             return (check_file_structure(join(structure_path, "train"), False) and check_file_structure(join(structure_path, "val"), False))
     else:
-        if (subdirectories.__contains__("images") and subdirectories.__contains__("labels")):
+        if ("images" in subdirectories and "labels" in subdirectories):
             return True
     return False
 
