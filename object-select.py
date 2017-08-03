@@ -14,6 +14,7 @@ class Image:
 
     def __repr__(self):
         return __str__()
+        
     def __str__(self):
         return "<Image name:{0} path:{1} labelpath:{2}>".format(self.name, self.path, self.labelpath)
 
