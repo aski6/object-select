@@ -12,6 +12,11 @@ class Image:
         self.path = path
         self.labelpath = labelpath
 
+    def __repr__(self):
+        return __str__()
+    def __str__(self):
+        return "<Image name:{0} path:{1} labelpath:{2}>".format(self.name, self.path, self.labelpath)
+
 next_image = 0
 total_images = 0
 images = []
@@ -67,4 +72,7 @@ if(__name__ == "__main__"): #If this is the python file being directly run, perf
         print("The target directory matches the required filestructure, loading images and starting web application.")
         load_images(args.dir)
         print("Loaded " + str(total_images) + " images.")
-        app.run(host=args.host, port=args.port, debug=args.debug)
+        #app.run(host=args.host, port=args.port, debug=args.debug)
+        for image in images:
+            print(image)
+    else:
