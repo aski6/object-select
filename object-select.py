@@ -31,7 +31,7 @@ def check_file_structure(structure_path, overall_root): #Checks that the file st
             return True
     return False
 
-def load_images(dataset_root):
+def load_images(dataset_root):# load a list of the images to work on by scanning the appropriate directories, creating a new image object for each file with the file name, path to the file and the path to the corrisponding label file.
     for image_category in ["train", "val"] :
         category_dir = join(dataset_root, image_category)
         image_dir = join(category_dir, "images")
