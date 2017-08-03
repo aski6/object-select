@@ -32,16 +32,15 @@ def check_file_structure(structure_path, overall_root): #Checks that the file st
     return False
 
 def load_images(dataset_root):
-    train_dir = join(dataset_root, "train")
-    for image in listdir(join(train_dir, "images")):
-        if isfile(join(join(train_dir, "images"), image)):
-            images.append(Image(image, join(join(train_dir, "images"), image), join(join(train_dir, "labels"), image.split(".")[0] + ".txt")))
-            total_images += 1
-    val_dir = join(dataset_root, "val")
-    for image in listdir(join(val_dir, "images")):
-        if isfile(join(join(val_dir, "images"), image)):
-            images.append(Image(image, join(join(val_dir, "images"), image), join(join(val_dir, "labels"), image.split(".")[0] + ".txt")))
-            total_images += 1
+    for image_category in ["train", "val"] :
+        category_dir = join(dataset_root, image_category)
+        image_dir = join(category_dir, "images")
+        labels_dir = join(category_dir, "labels")
+        for image in listdir(image_dir):
+            image_path = join(image_dir, image)
+            if isfile(image_path):
+                images.append(Image(image, image_path, join(labels_dir, image.split(".")[0] + ".txt")))
+                total_images += 1
 
 def get_next_image():
     return "Next Image"
