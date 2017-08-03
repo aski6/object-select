@@ -53,13 +53,25 @@ def load_images(dataset_root):# load a list of the images to work on by scanning
                 total_images += 1
 
 def get_next_image():
-    return "Next Image"
+    global next_image
+    global total_images
+    if(next_image != total_images):
+        image = images[next_image]
+        copy2(image.path, "static/")
+        next_image += 1
+        return url_for("static", filename=image.name)
+    else:
+        return "ERROR: Last Image Already processed."
 
 app = Flask(__name__)
 
 @app.route("/")
 def root():
-    return render_template("selector.html", image=get_next_image(), scripts=[url_for("static", filename="selector.js")])
+    image_url = get_next_image()
+    if(image_url == "ERROR: Last Image Already processed."):
+        return render_template("done.hml")
+    else:
+        return render_template("selector.html", image=image_url, scripts=[url_for("static", filename="selector.js")])
 
 @app.route("/submit_image/")
 def process_submission():
@@ -72,7 +84,6 @@ if(__name__ == "__main__"): #If this is the python file being directly run, perf
         print("The target directory matches the required filestructure, loading images and starting web application.")
         load_images(args.dir)
         print("Loaded " + str(total_images) + " images.")
-        #app.run(host=args.host, port=args.port, debug=args.debug)
-        for image in images:
-            print(image)
+        app.run(host=args.host, port=args.port, debug=args.debug)
     else:
+        print("Filestructure check failed on target directory. Please make sure that the target directory matches the required filestructure.")
