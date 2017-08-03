@@ -3,8 +3,14 @@ import sys
 import argparse
 from shutil import copy2
 from os import listdir
-from os.path import isdir, join
+from os.path import isdir, isfile, join
 from flask import Flask, render_template, redirect, request, url_for
+
+class Image:
+    def __init__(self, name, path, labelpath):
+        self.name = name
+        self.path = path
+        self.labelpath = labelpath
 
 def parse_args(): #Parse the command arguments, returning them to be used by the program
     parser = argparse.ArgumentParser()
@@ -26,18 +32,29 @@ def check_file_structure(structure_path, overall_root): #Checks that the file st
     return False
 
 def load_images(dataset_root):
-    
-    print("TODO load images")
+    train_dir = join(dataset_root, "train")
+    for image in listdir(join(train_dir, "images")):
+        if isfile(join(join(train_dir, "images"), image)):
+            images.append(Image(image, join(join(train_dir, "images"), image), join(join(train_dir, "labels"), image.split(".")[0] + ".txt")))
+            total_images += 1
+    val_dir = join(dataset_root, "val")
+    for image in listdir(join(val_dir, "images")):
+        if isfile(join(join(val_dir, "images"), image)):
+            images.append(Image(image, join(join(val_dir, "images"), image), join(join(val_dir, "labels"), image.split(".")[0] + ".txt")))
+            total_images += 1
+
+def get_next_image():
+    return "Next Image"
 
 next_image = 0
-total_images
+total_images = 0
 images = []
 
 app = Flask(__name__)
 
 @app.route("/")
 def root():
-    return render_template("selector.html", image=get_next_image() scripts=[url_for("static", filename="selector.js")])
+    return render_template("selector.html", image=get_next_image(), scripts=[url_for("static", filename="selector.js")])
 
 @app.route("/submit_image/")
 def process_submission():
@@ -47,11 +64,7 @@ def process_submission():
 if(__name__ == "__main__"): #If this is the python file being directly run, perform these actions.
     args = parse_args()
     if(check_file_structure(args.dir, True)):
-        print("The target directory matches the required filestructure,")
+        print("The target directory matches the required filestructure, loading images and starting web application.")
+        load_images(args.dir)
+        print("Loaded " + str(total_images) + " images.")
         app.run(host=args.host, port=args.port, debug=args.debug)
-
-class Image:
-    def __init__(self, name, path, labelpath):
-        self.name = name
-        self.path = path
-        self.labelpath = labelpath
