@@ -26,6 +26,7 @@ def check_file_structure(structure_path, overall_root): #Checks that the file st
     return False
 
 def load_images(dataset_root):
+    
     print("TODO load images")
 
 next_image = 0
