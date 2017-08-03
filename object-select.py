@@ -12,6 +12,10 @@ class Image:
         self.path = path
         self.labelpath = labelpath
 
+next_image = 0
+total_images = 0
+images = []
+
 def parse_args(): #Parse the command arguments, returning them to be used by the program
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", type=str, default="127.0.0.1")
@@ -32,6 +36,7 @@ def check_file_structure(structure_path, overall_root): #Checks that the file st
     return False
 
 def load_images(dataset_root):# load a list of the images to work on by scanning the appropriate directories, creating a new image object for each file with the file name, path to the file and the path to the corrisponding label file.
+    global total_images
     for image_category in ["train", "val"] :
         category_dir = join(dataset_root, image_category)
         image_dir = join(category_dir, "images")
@@ -44,10 +49,6 @@ def load_images(dataset_root):# load a list of the images to work on by scanning
 
 def get_next_image():
     return "Next Image"
-
-next_image = 0
-total_images = 0
-images = []
 
 app = Flask(__name__)
 
