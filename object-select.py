@@ -71,7 +71,7 @@ def root():
     if(image_url == "ERROR: Last Image Already processed."):
         return render_template("done.hml")
     else:
-        return render_template("selector.html", image=image_url, scripts=[url_for("static", filename="selector.js")])
+        return render_template("selector.html", image=image_url, scripts=[url_for("static", filename="selector.js")], stylesheet=url_for("static", filename="style.css"))
 
 @app.route("/submit_image/")
 def process_submission():
