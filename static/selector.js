@@ -17,17 +17,22 @@ var width = selectorImage.width;
 var height = selectorImage.height;
 var mouseX;
 var mouseY;
-var newObject = true;
-var objC1X;
-var objC1Y;
-var objC2X;
-var objC2Y;
+var currentlySelecting = false;
+var currentSelectionName = "default";
+var objX1;
+var objY1;
+var objX2;
+var objy2;
 
-function Object() {
-
+function Selection(name, x1, y1, x2, y2) {
+  this.name = name
+  this.x1 = x1;
+  this.y1 = y1;
+  this.x2 = x2;
+  this.y2 = y2;
 }
 
-var objects = [];
+var selections = [];
 
 //setup event listeners
 document.onmousemove = mouseMoved;
@@ -38,11 +43,27 @@ function mouseMoved(e) {
 
 canvas.onclick = canvasClicked;
 function canvasClicked(e) {
-  if(newObject) {
-
+  if(currentlySelecting) {
+    objX2 = e.pageX;
+    objY2 = e.pageY;
+    addCurrentObject();
+    currentlySelecting = false;
+  } else {
+    currentlySelecting = true;
+    objX1 = e.pageX;
+    objY1 = e.pageY;
   }
 }
 
+//data and setting handling functions.
+//function to add a new object based on the current selection co-ordenates.
+function addCurrentObject() {
+  selections.push(new Selection(currentSelectionName, objX1, objY1, objX2, objY2));
+}
+
+function setSelectionName(name) {
+  currentSelectionName = name;
+}
 //main loop functions
 function update() {
 
@@ -60,7 +81,6 @@ function render() {
 }
 
 function run() {
-  update();
   render();
 }
 

@@ -14,6 +14,15 @@
   {% for script in scripts %}
   <script src="{{script}}"> </script>
   {% endfor %}
+  <form class="input" id="selectionName" action="javascript:setSelectionName(selectionName.value)">
+    <input type="text" name="selectionName" placeholder="default">
+    <label for="selectionName">Name of object selecting.</label>
+    <button type="submit">Submit</button>
+  </form>
+  <form class="input" id="dataSubmit" action="/submit/">
+    <input style="display:none;" type="text" name="selectionData">
+    <button type="submit">Submit</button>
+  </form>
 </body>
 
 </html>
