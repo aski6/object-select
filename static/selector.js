@@ -30,6 +30,9 @@ function Selection(name, x1, y1, x2, y2) {
   this.y1 = y1;
   this.x2 = x2;
   this.y2 = y2;
+  this.toString = function(){
+    return (name + "," + x1 + "," + y1 + "," + x2 + "," + y2);
+  };
 }
 
 var selections = [];
@@ -59,16 +62,24 @@ function canvasClicked(e) {
 //function to add a new object based on the current selection co-ordenates.
 function addCurrentObject() {
   selections.push(new Selection(currentSelectionName, objX1, objY1, objX2, objY2));
+  populateObjectSubmit();
 }
 
 function setSelectionName(name) {
   currentSelectionName = name;
 }
-//main loop functions
-function update() {
 
+function populateObjectSubmit() {
+  dataContainer = document.getElementById("selectionData");
+  dataString = "";
+  for (var selection in selections) {
+    dataString = dataString.concat(selection.toString() + "|");
+  }
+  dataContainer.value = dataString;
+  console.log(dataString);
 }
 
+//main loop functions
 function render() {
   //clear screen to draw new stuff on it.
   context.clearRect(0, 0, canvas.width, canvas.height);
