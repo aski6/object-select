@@ -65,15 +65,17 @@ function addCurrentObject() {
   populateObjectSubmit();
 }
 
-function setSelectionName(name) {
+function setSelectionName() {
+  name = document.getElementById("selectionName").value;
+  console.log("Name for new selections set to : " + name);
   currentSelectionName = name;
 }
 
 function populateObjectSubmit() {
   dataContainer = document.getElementById("selectionData");
   dataString = "";
-  for (var selection in selections) {
-    dataString = dataString.concat(selection.toString() + "|");
+  for (var i in selections) {
+    dataString = dataString.concat(selections[i].toString() + "|");
   }
   dataContainer.value = dataString;
   console.log(dataString);

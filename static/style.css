@@ -7,4 +7,20 @@ body {
 }
 .hidden {
   display:none;
+  float:right;
+}
+
+#title {
+  margin: 4pt;
+  border-bottom: 2pt solid #ff8000;
+}
+#content {
+  margin: 2pt;
+}
+
+.title {
+  font-size: 18pt;
+}
+.content {
+  font-size: 14pt;
 }

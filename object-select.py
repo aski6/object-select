@@ -6,6 +6,7 @@ from os import listdir
 from os.path import isdir, isfile, join
 from flask import Flask, render_template, redirect, request, url_for
 
+#class and global variable definitions for the script
 class Image:
     def __init__(self, name, path, labelpath):
         self.name = name
@@ -14,7 +15,7 @@ class Image:
 
     def __repr__(self):
         return __str__()
-        
+
     def __str__(self):
         return "<Image name:{0} path:{1} labelpath:{2}>".format(self.name, self.path, self.labelpath)
 
@@ -30,6 +31,7 @@ def parse_args(): #Parse the command arguments, returning them to be used by the
     parser.add_argument("dir", type=str)
     return parser.parse_args()
 
+#functions for dealing with the file structure, handling and output.
 def check_file_structure(structure_path, overall_root): #Checks that the file stucture of the specified path matches that of the corresponding part of the detectnet dataset format. overall_root defines if the supplied path is the overall root of the filestructure (True), or if it is one of the subdirectories (False).
     subdirectories = [f for f in listdir(structure_path) if isdir(join(structure_path, f))]
     if(overall_root):
@@ -64,20 +66,25 @@ def get_next_image():
     else:
         return "ERROR: Last Image Already processed."
 
+def write_object_selections(selections_string):
+    print("Selection String to be written to KITTI dataset format: " + selections_string)
+
+#flask application functions and setup
 app = Flask(__name__)
 
 @app.route("/")
 def root():
     image_url = get_next_image()
     if(image_url == "ERROR: Last Image Already processed."):
-        return render_template("done.hml")
+        return render_template("done.html", stylesheet=url_for("static", filename="style.css"))
     else:
         return render_template("selector.html", image=image_url, scripts=[url_for("static", filename="selector.js")], stylesheet=url_for("static", filename="style.css"))
 
-@app.route("/submit_image/")
+@app.route("/submit_image/", methods=["GET", "POST"])
 def process_submission():
-    #TODO add code to process the submitted images
-    return redirect(url_for(root))
+    if (request.method == "POST"):
+        write_object_selections(request.form["selectionData"])
+    return redirect(url_for("root"))
 
 if(__name__ == "__main__"): #If this is the python file being directly run, perform these actions.
     args = parse_args()
