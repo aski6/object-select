@@ -67,7 +67,12 @@ def get_next_image():
         return "ERROR: Last Image Already processed."
 
 def write_object_selections(selections_string):
-    print("Selection String to be written to KITTI dataset format: " + selections_string)
+    output_file = open(image[next_image - 1].labelpath, "w")
+    for selection in selections_string.split("|"):
+        selection_data = selection.split(",")
+        print(selection_data)
+        selection_line = "{} 0.0 0 0.0 {} {} {} {} 0.0 0.0 0.0 0.0 0.0 0.0 0.0"
+        output_file.writeline(selection_line.format(selection_data[0], selection_data[1], selection_data[2], selection_data[3], selection_data[4]))
 
 #flask application functions and setup
 app = Flask(__name__)

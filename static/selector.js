@@ -3,16 +3,24 @@ var context = canvas.getContext("2d");
 
 //create image variable, load and log the source.
 selectorImage = new Image();
+selectorImage.onload = function () {
+  canvas.width = selectorImage.width;
+  canvas.height = selectorImage.height;
+  canvas.style.width = selectorImage.width;
+  canvas.style.height = selectorImage.height;
+}
 selectorImage.src=document.getElementById("img_src").innerHTML;
+
 console.log("Source of image to select from:");
 console.log(document.getElementById("img_src").innerHTML);
 
 //set the canvas size to match that of the image we are selecting objects in
+/*
 canvas.width = selectorImage.width;
 canvas.height = selectorImage.height;
 canvas.style.width = selectorImage.width;
 canvas.style.height = selectorImage.height;
-
+*/
 var width = selectorImage.width;
 var height = selectorImage.height;
 var mouseX;
@@ -38,11 +46,11 @@ function Selection(name, x1, y1, x2, y2) {
 var selections = [];
 
 //setup event listeners
-document.onmousemove = mouseMoved;
 function mouseMoved(e) {
   mouseX = e.pageX;
   mouseY = e.pageY;
 }
+document.onmousemove = mouseMoved;
 
 canvas.onclick = canvasClicked;
 function canvasClicked(e) {
