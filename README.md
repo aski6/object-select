@@ -6,6 +6,6 @@ Uses a flask application to send each image to the user when requested, javascri
 Start the script, passing the path to the root directory of the file structure used by NVIDIA DIGITS for detectnet (Must already contain images to be used, existing labels will be overwritten). Directory is passed as the first non-optional argument.
 Host, port and the debug mode for the flask application can each be set using the arguments --host [HOST], --port [PORT] and --debug [True/False] respectively.
 ## Extra information
-* This tool is still being developed, and is not ready for use. This point will be removed when the tool is ready for use, but development to improve it may continue if it is worth the time and effort of doing so.
+* This tool is still being developed, and while in theory now ready for use, it appears to have a bug where the display of selection rulers is inconsistantly done on a per-image basis. Once this bug is fixed, the program should be ready for normal use. However, development to improve this may continue if it is worth the time and effort of doing so.
 * There may be some specific requirements about how objects are selected. Those will be stated here once the tool is ready for use.
 * Browser cache may need to be cleared for repeated usage of the tool.
