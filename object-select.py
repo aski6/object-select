@@ -58,7 +58,7 @@ def load_images(dataset_root):# load a list of the images to work on by scanning
 def get_next_image():
     global next_image
     global total_images
-    if(next_image != total_images):
+    if (next_image != total_images):
         image = images[next_image]
         copy2(image.path, "static/")
         next_image += 1
@@ -67,7 +67,13 @@ def get_next_image():
         return "ERROR: Last Image Already processed."
 
 def write_object_selections(selections_string):
-    print("Selection String to be written to KITTI dataset format: " + selections_string)
+    output_file = open(images[next_image - 1].labelpath, "w")
+    for selection in selections_string.split("|"):
+        if (selection != ""):
+            selection_data = selection.split(",")
+            print(selection_data)
+            selection_line = "{} 0.0 0 0.0 {} {} {} {} 0.0 0.0 0.0 0.0 0.0 0.0 0.0\n"
+            output_file.write(selection_line.format(selection_data[0], selection_data[1], selection_data[2], selection_data[3], selection_data[4]))
 
 #flask application functions and setup
 app = Flask(__name__)
@@ -75,7 +81,7 @@ app = Flask(__name__)
 @app.route("/")
 def root():
     image_url = get_next_image()
-    if(image_url == "ERROR: Last Image Already processed."):
+    if (image_url == "ERROR: Last Image Already processed."):
         return render_template("done.html", stylesheet=url_for("static", filename="style.css"))
     else:
         return render_template("selector.html", image=image_url, scripts=[url_for("static", filename="selector.js")], stylesheet=url_for("static", filename="style.css"))
@@ -88,7 +94,7 @@ def process_submission():
 
 if(__name__ == "__main__"): #If this is the python file being directly run, perform these actions.
     args = parse_args()
-    if(check_file_structure(args.dir, True)):
+    if (check_file_structure(args.dir, True)):
         print("The target directory matches the required filestructure, loading images and starting web application.")
         load_images(args.dir)
         print("Loaded " + str(total_images) + " images.")

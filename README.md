@@ -7,5 +7,5 @@ Start the script, passing the path to the root directory of the file structure u
 Host, port and the debug mode for the flask application can each be set using the arguments --host [HOST], --port [PORT] and --debug [True/False] respectively.
 ## Extra information
 * This tool is still being developed, and while in theory now ready for use, it appears to have a bug where the display of selection rulers is inconsistantly done on a per-image basis. Once this bug is fixed, the program should be ready for normal use. However, development to improve this may continue if it is worth the time and effort of doing so.
-* There may be some specific requirements about how objects are selected. Those will be stated here once the tool is ready for use.
+* Objects need to be selected from top-left to bottom-right. If not done this way, the data output to the label in the dataset will be wrong.
 * Browser cache may need to be cleared for repeated usage of the tool.
