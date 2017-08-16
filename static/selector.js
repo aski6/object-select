@@ -2,8 +2,8 @@ var canvas = document.getElementById("selector-area");
 var context = canvas.getContext("2d");
 
 //global variables needed at runtime.
-var width = selectorImage.width;
-var height = selectorImage.height;
+var width;
+var height;
 var mouseX;
 var mouseY;
 var currentlySelecting = false;
@@ -22,7 +22,7 @@ selectorImage.onload = function () {
   canvas.style.width = selectorImage.width;
   canvas.style.height = selectorImage.height;
   height = selectorImage.height;
-  height = selectorImage.height;
+  width = selectorImage.width;
   imageReady = true;
 }
 selectorImage.src=document.getElementById("img_src").innerHTML;
