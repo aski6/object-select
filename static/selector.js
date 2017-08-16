@@ -1,6 +1,18 @@
 var canvas = document.getElementById("selector-area");
 var context = canvas.getContext("2d");
 
+//global variables needed at runtime.
+var width = selectorImage.width;
+var height = selectorImage.height;
+var mouseX;
+var mouseY;
+var currentlySelecting = false;
+var currentSelectionName = "default";
+var objX1;
+var objY1;
+var objX2;
+var objy2;
+
 //create image variable, load and log the source.
 var imageReady = false;
 var selectorImage = new Image();
@@ -9,6 +21,8 @@ selectorImage.onload = function () {
   canvas.height = selectorImage.height;
   canvas.style.width = selectorImage.width;
   canvas.style.height = selectorImage.height;
+  height = selectorImage.height;
+  height = selectorImage.height;
   imageReady = true;
 }
 selectorImage.src=document.getElementById("img_src").innerHTML;
@@ -23,16 +37,6 @@ canvas.height = selectorImage.height;
 canvas.style.width = selectorImage.width;
 canvas.style.height = selectorImage.height;
 */
-var width = selectorImage.width;
-var height = selectorImage.height;
-var mouseX;
-var mouseY;
-var currentlySelecting = false;
-var currentSelectionName = "default";
-var objX1;
-var objY1;
-var objX2;
-var objy2;
 
 function Selection(name, x1, y1, x2, y2) {
   this.name = name
