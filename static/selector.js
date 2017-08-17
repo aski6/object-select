@@ -30,14 +30,6 @@ selectorImage.src=document.getElementById("img_src").innerHTML;
 console.log("Source of image to select from:");
 console.log(document.getElementById("img_src").innerHTML);
 
-//set the canvas size to match that of the image we are selecting objects in
-/*
-canvas.width = selectorImage.width;
-canvas.height = selectorImage.height;
-canvas.style.width = selectorImage.width;
-canvas.style.height = selectorImage.height;
-*/
-
 function Selection(name, x1, y1, x2, y2) {
   this.name = name
   this.x1 = x1;
@@ -108,6 +100,11 @@ function render() {
   //fill a rect 3px by the height of the image for the vertical ruler
   context.fillRect(mouseX-1, 0, 2, height);
   context.fillRect(0, mouseY-1, width, 2);
+  for (var i in selections) {
+    var selection = selections[i];
+    context.fillRect(selection.x1, selection.y1, selection.x2-selection.x1, selection.y2-selection.y1);
+  }
+
 }
 
 function run() {
