@@ -1,4 +1,6 @@
 test-file-structure
+test-file-structure*
+test-file-structure*/*
 test-file-structure/*
 static/*
 !static/selector.js

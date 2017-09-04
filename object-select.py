@@ -74,6 +74,7 @@ def write_object_selections(selections_string):
             print(selection_data)
             selection_line = "{} 0.0 0 0.0 {} {} {} {} 0.0 0.0 0.0 0.0 0.0 0.0 0.0\n"
             output_file.write(selection_line.format(selection_data[0], selection_data[1], selection_data[4], selection_data[3], selection_data[2]))
+    output_file.close()
 
 #flask application functions and setup
 app = Flask(__name__)
