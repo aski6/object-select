@@ -68,7 +68,7 @@ function canvasClicked(e) {
 //data and setting handling functions.
 //function to add a new object based on the current selection co-ordenates.
 function addCurrentObject() {
-  selections.push(new Selection(currentSelectionName, objX1, objY1, objX2, objY2));
+  selections.push(new Selection(currentSelectionName, objX1, height-objY1, objX2, height-objY2));
   populateObjectSubmit();
 }
 
@@ -102,7 +102,8 @@ function render() {
   context.fillRect(0, mouseY-1, width, 2);
   for (var i in selections) {
     var selection = selections[i];
-    context.fillRect(selection.x1, selection.y1, selection.x2-selection.x1, selection.y2-selection.y1);
+    context.rect(selection.x1, height-selection.y1, selection.x2-selection.x1, (height-selection.y2)-(height-selection.y1));
+    context.stroke();
   }
 
 }
